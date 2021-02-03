@@ -20,3 +20,4 @@ MonoBehaviour:
   enemyList:
   - {fileID: 7437480544124084316, guid: f353389c81a13b247abc8469802152b7, type: 3}
   - {fileID: 6827700227348883615, guid: 5213cea26a6f1ca4d9f9ca10a2650202, type: 3}
+  - {fileID: 6827700227348883615, guid: 613113a9450a80d499f6bfb0f2fba450, type: 3}
