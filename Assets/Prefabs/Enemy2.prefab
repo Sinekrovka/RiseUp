@@ -48,6 +48,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StickEnemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3264785445918298911, guid: a1807444ff95af44f848754c1615e04b,
+        type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3486635153582154517, guid: a1807444ff95af44f848754c1615e04b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -127,6 +132,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StickEnemy (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264785445918298911, guid: a1807444ff95af44f848754c1615e04b,
+        type: 3}
+      propertyPath: m_Mass
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3486635153582154517, guid: a1807444ff95af44f848754c1615e04b,
         type: 3}
@@ -208,6 +218,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StickEnemy (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3264785445918298911, guid: a1807444ff95af44f848754c1615e04b,
+        type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3486635153582154517, guid: a1807444ff95af44f848754c1615e04b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -287,6 +302,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StickEnemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264785445918298911, guid: a1807444ff95af44f848754c1615e04b,
+        type: 3}
+      propertyPath: m_Mass
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3486635153582154517, guid: a1807444ff95af44f848754c1615e04b,
         type: 3}
@@ -368,6 +388,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StickEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3264785445918298911, guid: a1807444ff95af44f848754c1615e04b,
+        type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3486635153582154517, guid: a1807444ff95af44f848754c1615e04b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -447,6 +472,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StickEnemy (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264785445918298911, guid: a1807444ff95af44f848754c1615e04b,
+        type: 3}
+      propertyPath: m_Mass
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3486635153582154517, guid: a1807444ff95af44f848754c1615e04b,
         type: 3}

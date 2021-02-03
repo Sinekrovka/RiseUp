@@ -24,8 +24,10 @@ public class LevelGenerator : MonoBehaviour
         {
             randomIndex = Random.Range(0, lvlList.Levels.Count);
             level = Instantiate(lvlList.Levels[randomIndex], new Vector3(0f, yGenerate, 0), Quaternion.identity);
+            
             randomIndex = Random.Range(0, lvlList.EnemyList.Count);
-            enemy = Instantiate(lvlList.EnemyList[randomIndex], new Vector3(0f, yGenerate+7.5f, 0), Quaternion.identity);
+            enemy = Instantiate(lvlList.EnemyList[randomIndex], new Vector3(0f, yGenerate, 0), Quaternion.identity);
+            
             enemyList.Add(enemy);
             prefablist.Add(level);
             yGenerate += 30f;
@@ -59,7 +61,11 @@ public class LevelGenerator : MonoBehaviour
             
             prefablist.RemoveAt(0);
             Destroy(delete);
-            delete = enemyList[0];
+        }
+        
+        delete = enemyList[0];
+        if (delete.transform.position.y <= -30f)
+        {
             enemyList.RemoveAt(0);
             Destroy(delete);
         }
