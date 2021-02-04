@@ -7,12 +7,16 @@ using UnityEngine.UI;
 public class Points : MonoBehaviour
 {
     private Text txt;
+    public Fail fail;
     void Start()
     {
         txt = GetComponent<Text>();
     }
     private void FixedUpdate()
     {
-        txt.text = Convert.ToString(Convert.ToInt32(Time.time));
+        if (!fail.Failed)
+        {
+            txt.text = Convert.ToString(Convert.ToInt32(Time.time));
+        }
     }
 }

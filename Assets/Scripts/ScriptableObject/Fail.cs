@@ -6,9 +6,10 @@ using UnityEngine;
 [CreateAssetMenu (fileName = "Fail", menuName = "Fail Detected", order = 52)]
 public class Fail : ScriptableObject
 {
-    private bool failed;
-    private float yPosition;
-    private int countLevel;
+    [SerializeField] private bool failed;
+    [SerializeField] private float yPosition;
+    [SerializeField] private int countLevel;
+    [SerializeField] private bool newRecord;
 
     public bool Failed
     {
@@ -26,5 +27,11 @@ public class Fail : ScriptableObject
     {
         get => countLevel;
         set => countLevel = value;
+    }
+
+    public bool NewRecord
+    {
+        get => newRecord;
+        set => newRecord = value;
     }
 }

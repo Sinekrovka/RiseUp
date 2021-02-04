@@ -6,13 +6,13 @@ using UnityEngine;
 public class AirBoll : MonoBehaviour
 {
     private int countLevel;
-
     public Fail failDetect;
     // Start is called before the first frame update
     void Start()
     {
         countLevel = 0;
         failDetect.Failed = false;
+        failDetect.NewRecord = false;
     }
 
     // Update is called once per frame
@@ -23,13 +23,16 @@ public class AirBoll : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "Enemy" && !failDetect.Failed )
         {
-            Debug.Log("FAIL");
             failDetect.Failed = true;
+            if (failDetect.CountLevel < countLevel)
+            {
+                failDetect.NewRecord = true;
+                failDetect.CountLevel = countLevel + 1;
+            }
             /*Уничтожаем объект
-             Вызываем  UI
-             Сохраняем результат*/
+             Вызываем  UI*/
         }
     }
 
