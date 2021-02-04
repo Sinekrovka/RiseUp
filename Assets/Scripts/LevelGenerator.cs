@@ -8,6 +8,7 @@ public class LevelGenerator : MonoBehaviour
 {
     public LevelList lvlList;
     public float speed;
+    public Fail failDetect;
     
     private int randomIndex;
     private List<GameObject> prefablist;
@@ -36,35 +37,59 @@ public class LevelGenerator : MonoBehaviour
 
     private void FixedUpdate()
     {
-        for (int i = 0; i < prefablist.Count; ++i)
+        MoveBackground();
+        MoveEnemy();
+        GenerateLevel();
+        if (failDetect)
         {
-            prefablist[i].transform.position = prefablist[i].transform.position + speed * Time.deltaTime * Vector3.down;
-        }
-
-        for (int i = 0; i < enemyList.Count; ++i)
-        {
-            enemyList[i].transform.position = enemyList[i].transform.position + speed * Time.deltaTime * Vector3.down;
+            /*здесь высчитываем координаты где шарик лопнул и сохраняем их для создания следующего чекпоинта*/
         }
         
-        GameObject delete = prefablist[0];
-        if (delete.transform.position.y <= -50f)
+    }
+
+    private void MoveBackground()
+    {
+        for (int i = 0; i < prefablist.Count; ++i)
+        { 
+            prefablist[i].transform.position = prefablist[i].transform.position + Vector3.down * speed * Time.deltaTime;
+        }
+    }
+
+    private void MoveEnemy()
+    {
+        for (int i = 0; i < enemyList.Count; ++i)
         {
-            float t = prefablist[prefablist.Count - 1].transform.position.y;
+            int countChild = enemyList[i].transform.childCount;
+            GameObject enemy = enemyList[i].gameObject; 
+            for (int j = 0; j < countChild; ++j)
+            {
+                Rigidbody2D rb2d = enemy.transform.GetChild(j).GetComponent<Rigidbody2D>();
+                rb2d.MovePosition(rb2d.position + Vector2.down *speed*Time.deltaTime);
+            }
+        }
+    }
+
+    private void GenerateLevel()
+    {
+        GameObject delete = prefablist[0];
+        if (delete.transform.position.y <= -30f)
+        {
+            float t = prefablist[prefablist.Count - 1].transform.position.y +30f;
             randomIndex = Random.Range(0, lvlList.Levels.Count);
+            
             level = Instantiate(lvlList.Levels[randomIndex], new Vector3(0f, 
-                 t+30, 0), Quaternion.identity);
+                t, 0), Quaternion.identity);
             prefablist.Add(level);
             
             randomIndex = Random.Range(0, lvlList.EnemyList.Count);
-            enemy = Instantiate(lvlList.EnemyList[randomIndex], new Vector3(0f, t+7.5f, 0), Quaternion.identity);
+            enemy = Instantiate(lvlList.EnemyList[randomIndex], new Vector3(0f, t, 0), Quaternion.identity);
             enemyList.Add(enemy);
-            
             prefablist.RemoveAt(0);
             Destroy(delete);
         }
         
         delete = enemyList[0];
-        if (delete.transform.position.y <= -30f)
+        if (delete.transform.GetChild(0).GetComponent<Rigidbody2D>().position.y <= -30f)
         {
             enemyList.RemoveAt(0);
             Destroy(delete);

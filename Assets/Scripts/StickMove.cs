@@ -10,10 +10,12 @@ public class StickMove : MonoBehaviour
 {
     private Camera cam;
     private Vector2 mouseDrag;
+    private Rigidbody2D rb2d;
     void Start()
     {
         cam = Camera.main;
         mouseDrag = new Vector2();
+        rb2d = GetComponent<Rigidbody2D>();
         Vibration.Init();
     }
 
@@ -21,7 +23,9 @@ public class StickMove : MonoBehaviour
     {
         mouseDrag.x = cam.ScreenToWorldPoint(Input.mousePosition).x;
         mouseDrag.y = cam.ScreenToWorldPoint(Input.mousePosition).y;
-        transform.position = mouseDrag;
+        rb2d.MovePosition(mouseDrag);
+        //transform.position = mouseDrag;
+        
     }/**/
     /*Для отладки на пк*/
 
@@ -31,7 +35,7 @@ public class StickMove : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
             mouseDrag = cam.ScreenToWorldPoint(touch.position);
-            transform.position = mouseDrag;
+            rb2d.MovePosition(mouseDrag);
         }
     }
 
