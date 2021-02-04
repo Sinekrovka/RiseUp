@@ -19,6 +19,7 @@ public class LevelGenerator : MonoBehaviour
     private int randomIndex;
     private List<GameObject> prefablist;
     private List<GameObject> enemyList;
+    private List<GameObject> failList;
     private GameObject level;
     private GameObject enemy;
     private int countLevels;
@@ -31,6 +32,7 @@ public class LevelGenerator : MonoBehaviour
         
         prefablist = new List<GameObject>();
         enemyList = new List<GameObject>();
+        failList = new List<GameObject>();
         
         float yGenerate = 10f;
         
@@ -77,31 +79,56 @@ public class LevelGenerator : MonoBehaviour
             {
                 failDetect.YPosition = prefablist[0].transform.position.y;
                 detect = true;
-                
                 PlayerPrefs.SetFloat("PositionY", failDetect.YPosition);
                 PlayerPrefs.SetInt("Count", failDetect.CountLevel);
                 PlayerPrefs.Save();
             }
+            else if (!detect)
+            {
+                failList.Add(enemyList[0]);
+                failList.Add(enemyList[1]);
+                detect = true;
+            }
             else
             {
-                int t = 0; /*НАЙТИ И ИСпРАВИТЬ ОШИБИ*/
-                foreach (var enemys in enemyList)
+                if (failList.Count > 0)
                 {
-                    for (int i = 0; i < enemys.transform.childCount; ++i)
+                    Rigidbody2D rb2d_ = failList[0].transform.GetChild(0).GetComponent<Rigidbody2D>();
+                    if (rb2d_.position.y < 20f)
                     {
-                        Rigidbody2D rb2d = enemys.transform.GetChild(i).GetComponent<Rigidbody2D>();
-                        if (rb2d.position.y <= 20f)
+                        for (int i = 0; i < failList[0].transform.childCount; ++i)
                         {
-                            rb2d.MovePosition(rb2d.position + Vector2.down *speed*Time.deltaTime);
+                            rb2d_  = failList[0].transform.GetChild(i).GetComponent<Rigidbody2D>();
+                            rb2d_.MovePosition(rb2d_.position + Vector2.down *speed*Time.deltaTime);
                         }
-                        if (rb2d.position.y <= -30f)
+
+                        if (rb2d_.position.y <= -30f)
                         {
-                            GameObject g = enemys;
-                            enemyList.RemoveAt(t);
+                            GameObject g = failList[0];
+                            failList.RemoveAt(0);
                             Destroy(g);
                         }
                     }
-                    ++t;
+
+                    if (failList.Count > 1)
+                    {
+                        rb2d_ = failList[1].transform.GetChild(0).GetComponent<Rigidbody2D>();
+                        if (rb2d_.position.y < 20f)
+                        {
+                            for (int i = 1; i < failList[1].transform.childCount; ++i)
+                            {
+                                rb2d_  = failList[1].transform.GetChild(i).GetComponent<Rigidbody2D>();
+                                rb2d_.MovePosition(rb2d_.position + Vector2.down *speed*Time.deltaTime);
+                            }
+
+                            if (rb2d_.position.y <= -30f)
+                            {
+                                GameObject g = failList[1];
+                                failList.RemoveAt(1);
+                                Destroy(g);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -144,8 +171,6 @@ public class LevelGenerator : MonoBehaviour
             if (countLevels == failDetect.CountLevel)
             {
                 Vector3 rec = boll.position - new Vector3(0, failDetect.YPosition, 0);
-                Debug.Log(rec.y);
-                Debug.Log(countLevels);
                 Instantiate(records, level.transform.position+rec, Quaternion.identity, level.transform);
                 
             }
